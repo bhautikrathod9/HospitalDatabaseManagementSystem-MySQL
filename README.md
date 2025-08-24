@@ -155,10 +155,6 @@ crontab -e
 # Create backup
 ./scripts/backup.sh
 
-# Restore from backup
-./scripts/restore.sh backup_file.sql
-```
-
 ## 📁 Repository Structure
 
 ```
