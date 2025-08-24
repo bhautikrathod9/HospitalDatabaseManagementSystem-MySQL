@@ -154,6 +154,7 @@ crontab -e
 ```bash
 # Create backup
 ./scripts/backup.sh
+```
 
 ## 📁 Repository Structure
 
@@ -263,26 +264,6 @@ The system comes with sample data for immediate testing:
 - [ ] 💳 **Payment Integration** - External payment gateways
 - [ ] 🔍 **Search Enhancement** - Full-text search capabilities
 - [ ] 📅 **Calendar Integration** - Google Calendar sync
-
-## 🤝 Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 📞 Support
-
-- 📧 **Email**: your.email@example.com
-- 🐛 **Issues**: [GitHub Issues](https://github.com/yourusername/hospital-database-system/issues)
-- 📖 **Documentation**: [Project Wiki](https://github.com/yourusername/hospital-database-system/wiki)
 
 ---
 
