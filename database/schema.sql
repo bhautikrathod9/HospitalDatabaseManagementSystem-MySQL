@@ -84,3 +84,46 @@ CREATE TABLE audit_log (
     user_name VARCHAR(50),
     timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+-- Add foreign key for department head doctor
+ALTER TABLE departments 
+ADD CONSTRAINT fk_head_doctor 
+FOREIGN KEY (head_doctor_id) REFERENCES doctors(doctor_id);
+
+-- Indexes for faster searches
+CREATE INDEX idx_patient_name ON patients(last_name, first_name);
+CREATE INDEX idx_patient_phone ON patients(phone);
+CREATE INDEX idx_doctor_specialization ON doctors(specialization);
+CREATE INDEX idx_appointment_date ON appointments(appointment_date);
+CREATE INDEX idx_billing_date ON billing(bill_date);
+CREATE INDEX idx_patient_dob ON patients(date_of_birth);
+
+
+-- Create users for different roles
+CREATE USER 'dba_user'@'localhost' IDENTIFIED BY 'SecurePass123!';
+CREATE USER 'doctor_user'@'localhost' IDENTIFIED BY 'DocPass123!';
+CREATE USER 'nurse_user'@'localhost' IDENTIFIED BY 'NursePass123!';
+CREATE USER 'receptionist_user'@'localhost' IDENTIFIED BY 'RecepPass123!';
+
+-- DBA - Full access
+GRANT ALL PRIVILEGES ON hospital_management_system.* TO 'dba_user'@'localhost';
+
+-- Doctor - Can view and update patient records, appointments
+GRANT SELECT, INSERT, UPDATE ON hospital_management_system.patients TO 'doctor_user'@'localhost';
+GRANT SELECT, INSERT, UPDATE ON hospital_management_system.appointments TO 'doctor_user'@'localhost';
+GRANT SELECT ON hospital_management_system.doctors TO 'doctor_user'@'localhost';
+GRANT SELECT ON hospital_management_system.departments TO 'doctor_user'@'localhost';
+
+-- Nurse - Can view and update patient records, limited appointment access
+GRANT SELECT, INSERT, UPDATE ON hospital_management_system.patients TO 'nurse_user'@'localhost';
+GRANT SELECT ON hospital_management_system.appointments TO 'nurse_user'@'localhost';
+GRANT SELECT ON hospital_management_system.doctors TO 'nurse_user'@'localhost';
+
+-- Receptionist - Appointment and billing management
+GRANT SELECT, INSERT, UPDATE, DELETE ON hospital_management_system.appointments TO 'receptionist_user'@'localhost';
+GRANT SELECT, INSERT, UPDATE ON hospital_management_system.patients TO 'receptionist_user'@'localhost';
+GRANT SELECT, INSERT, UPDATE ON hospital_management_system.billing TO 'receptionist_user'@'localhost';
+GRANT SELECT ON hospital_management_system.doctors TO 'receptionist_user'@'localhost';
+
+-- Apply changes
+FLUSH PRIVILEGES;
